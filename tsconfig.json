@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "lib": [
+            "ESNext",
+            "DOM"
+        ],
+        "outDir": "dist",
+        "declaration": true,
+        "moduleResolution": "bundler",
+        "skipLibCheck": false,
+        "strict": true
+    },
+    "include": ["src"]
+}
