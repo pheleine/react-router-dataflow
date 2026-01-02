@@ -6,7 +6,8 @@ import pluginImports from "eslint-plugin-unused-imports";
 
 export default defineConfig([
     globalIgnores([
-        "dist"
+        "dist",
+        "coverage"
     ]),
     js.configs.recommended,
     ts.configs.recommended,

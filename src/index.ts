@@ -86,7 +86,7 @@ const createActionBuilder = <C extends object>(buildContext: ContextBuilder<Acti
             handlersMap[key.toLowerCase()] = handler;
         }
 
-        return async (args: ActionFunctionArgs) => {
+        return async (args) => {
             const method = args.request.method.toLowerCase();
             const handler = handlersMap[method];
 
