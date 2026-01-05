@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
-import { Action, Middleware } from "../src/index";
+import { Action, ActionMiddleware, Middleware } from "../src/index";
 import { ActionFunctionArgs } from "react-router";
 
 const MOCK_ARGS_POST = {
@@ -77,7 +77,7 @@ describe("Action builder", () => {
 });
 
 describe("Action builder intermediate steps", () => {
-    it("should enrich context for next intermediate steps and final build", async () => {
+    it("should enrich context with inline middlewares", async () => {
         const action = Action
             .with(async () => {
                 return {
@@ -127,13 +127,13 @@ describe("Action builder intermediate steps", () => {
     });
 
     it("should enrich context with predefined middlewares", async () => {
-        const withPredefined: Middleware<ActionFunctionArgs, { withPredefined: string }> = async () => {
+        const withPredefined: Middleware<{ withPredefined: string }> = async () => {
             return {
                 withPredefined: "withPredefined"
             };
         };
 
-        const requirePredefined: Middleware<ActionFunctionArgs, { requirePredefined: boolean }> = async () => {
+        const requirePredefined: ActionMiddleware<{ requirePredefined: boolean }> = async () => {
             return {
                 requirePredefined: true
             };
@@ -178,8 +178,41 @@ describe("Action builder intermediate steps", () => {
         expect(resultDELETE).toBe(1);
     });
 
+    it ("should not enrich context with middleware returning null", async () => {
+        const action = Action
+            .with(async () => ({ first: true }))
+            .with(async () => ({ second: true }))
+            .with(async () => null)
+            .build({
+                POST: async (_, context) => {
+                    expectTypeOf(context).toMatchObjectType<{
+                        first: boolean;
+                        second: boolean;
+                    }>();
+                    expect(context).toStrictEqual({ first: true, second: true });
+
+                    return "post";
+                },
+                delete: async (_, context) => {
+                    expectTypeOf(context).toMatchObjectType<{
+                        first: boolean;
+                        second: boolean;
+                    }>();
+                    expect(context).toStrictEqual({ first: true, second: true });
+
+                    return 1;
+                }
+            });
+
+        const resultPOST = await action(MOCK_ARGS_POST);
+        const resultDELETE = await action(MOCK_ARGS_DELETE);
+
+        expect(resultPOST).toBe("post");
+        expect(resultDELETE).toBe(1);
+    });
+
     it("should receive the args given to the action", async () => {
-        const predefined: Middleware<ActionFunctionArgs, { predefined: boolean }> = async (args) => {
+        const predefined: ActionMiddleware<{ predefined: boolean }> = async (args) => {
             expectTypeOf(args).toEqualTypeOf<ActionFunctionArgs>();
             expect(args).toStrictEqual(MOCK_ARGS_POST);
 

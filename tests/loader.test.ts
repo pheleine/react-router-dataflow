@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
-import { Loader, Middleware } from "../src/index";
+import { Loader, LoaderMiddleware, Middleware } from "../src/index";
 import { LoaderFunctionArgs } from "react-router";
 
 const MOCK_ARGS = {
@@ -49,7 +49,7 @@ describe("Loader builder", () => {
 });
 
 describe("Loader builder intermediate steps", () => {
-    it("should enrich context for next intermediate steps and final build", async () => {
+    it("should enrich context with inline middlewares", async () => {
         const loader = Loader
             .with(async () => {
                 return {
@@ -90,13 +90,13 @@ describe("Loader builder intermediate steps", () => {
     });
 
     it("should enrich context with predefined middlewares", async () => {
-        const withPredefined: Middleware<LoaderFunctionArgs, { withPredefined: string }> = async () => {
+        const withPredefined: Middleware<{ withPredefined: string }> = async () => {
             return {
                 withPredefined: "withPredefined"
             };
         };
 
-        const requirePredefined: Middleware<LoaderFunctionArgs, { requirePredefined: boolean }> = async () => {
+        const requirePredefined: LoaderMiddleware<{ requirePredefined: boolean }> = async () => {
             return {
                 requirePredefined: true
             };
@@ -124,8 +124,28 @@ describe("Loader builder intermediate steps", () => {
         expect(result).toBeNull();
     });
 
+    it ("should not enrich context with middleware returning null", async () => {
+        const loader = Loader
+            .with(async () => ({ first: true }))
+            .with(async () => ({ second: true }))
+            .with(async () => null)
+            .build(async (_, context) => {
+                expectTypeOf(context).toMatchObjectType<{
+                    first: boolean;
+                    second: boolean;
+                }>();
+                expect(context).toStrictEqual({ first: true, second: true });
+
+                return null;
+            });
+
+        const result = await loader(MOCK_ARGS);
+
+        expect(result).toBeNull();
+    });
+
     it("should receive the args given to the loader", async () => {
-        const predefined: Middleware<LoaderFunctionArgs, { predefined: boolean }> = async (args) => {
+        const predefined: LoaderMiddleware<{ predefined: boolean }> = async (args) => {
             expectTypeOf(args).toEqualTypeOf<LoaderFunctionArgs>();
             expect(args).toStrictEqual(MOCK_ARGS);
 
