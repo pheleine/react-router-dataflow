@@ -1,8 +1,16 @@
 {
   "name": "react-router-dataflow",
-  "license": "MIT",
   "version": "1.0.0",
-  "description": "",
+  "license": "MIT",
+  "type": "module",
+  "author": "Paulin Héleine",
+  "description": "A tiny, fully type-safe composer for React Router loaders and actions",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -11,12 +19,26 @@
       "import": "./dist/index.js"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pheleine/react-router-dataflow"
+  },
+  "keywords": [
+    "react-router",
+    "react",
+    "data-router",
+    "loader",
+    "action",
+    "middleware",
+    "middleware-pipeline",
+    "context",
+    "typescript"
+  ],
   "scripts": {
     "test": "vitest --typecheck",
     "test:run": "vitest run --typecheck",
     "build": "tsc"
   },
-  "author": "Paulin Héleine",
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@stylistic/eslint-plugin": "^5.6.1",

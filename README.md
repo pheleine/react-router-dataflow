@@ -126,7 +126,7 @@ Action
   });
 ```
 
-> For more advanced patterns such as context enforcement, parameterized middlewares and middleware factorization, see the [advanced middleware documentation](./docs/advanced_middlewares.md).
+> For more advanced patterns such as context enforcement, parameterized middlewares and middleware factorization, see the [advanced middleware documentation](https://github.com/pheleine/react-router-dataflow/blob/master/docs/advanced_middlewares.md).
 
 ## Integration in React Router
 
