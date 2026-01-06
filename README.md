@@ -4,6 +4,7 @@
 <p align="center">
   <a href="https://github.com/pheleine/react-router-dataflow/actions/workflows/ci.yaml"><img src="https://github.com/pheleine/react-router-dataflow/actions/workflows/ci.yaml/badge.svg?branch=master"/></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-Strict-blue"/></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-brightgreen.svg"/></a>
 </p>
 
 ## What is React Router Dataflow?
