@@ -8,6 +8,7 @@
         ],
         "outDir": "dist",
         "declaration": true,
+        "removeComments": true,
         "moduleResolution": "bundler",
         "skipLibCheck": false,
         "strict": true
