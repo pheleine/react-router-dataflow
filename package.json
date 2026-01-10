@@ -1,10 +1,10 @@
 {
   "name": "react-router-dataflow",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "license": "MIT",
   "type": "module",
   "author": "Paulin Héleine",
-  "description": "A tiny, fully type-safe composer for React Router loaders and actions",
+  "description": "A tiny, fully type-safe composer for React Router loaders, actions, and route guards",
   "sideEffects": false,
   "files": [
     "dist",

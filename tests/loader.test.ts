@@ -171,3 +171,37 @@ describe("Loader builder intermediate steps", () => {
         expect(result).toBeNull();
     });
 });
+
+describe("Middlewares on the loader usage", () => {
+    it("should be executed with default build", async () => {
+        let called = false;
+
+        const loader = Loader
+            .with(async () => {
+                called = true;
+
+                return null;
+            })
+            .build();
+
+        await loader(MOCK_ARGS);
+
+        expect(called).toBe(true);
+    });
+
+    it("should be executed with custom build", async () => {
+        let called = false;
+
+        const loader = Loader
+            .with(async () => {
+                called = true;
+
+                return null;
+            })
+            .build(async () => null);
+
+        await loader(MOCK_ARGS);
+
+        expect(called).toBe(true);
+    });
+});
