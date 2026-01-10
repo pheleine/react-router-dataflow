@@ -240,3 +240,45 @@ describe("Action builder intermediate steps", () => {
         expect(result).toBe("post");
     });
 });
+
+describe("Middlewares on the action usage", () => {
+    it("should be executed when method is handled", async () => {
+        let called = false;
+
+        const action = Action
+            .with(async () => {
+                called = true;
+
+                return null;
+            })
+            .build({
+                POST: async () => "post"
+            });
+
+        await action(MOCK_ARGS_POST);
+
+        expect(called).toBe(true);
+    });
+
+    it("should be executed when method is not handled", async () => {
+        let called = false;
+
+        const action = Action
+            .with(async () => {
+                called = true;
+
+                return null;
+            })
+            .build({
+                POST: async () => "post"
+            });
+
+        try {
+            await action(MOCK_ARGS_DELETE);
+        } catch (error) {
+            expect(error).toBeInstanceOf(Response);
+        }
+
+        expect(called).toBe(true);
+    });
+});
