@@ -11,8 +11,8 @@ type RouteMiddlewareHandler<C> = (args: RouteMiddlewareArgs, context: C) => Prom
 
 type RouteMiddlewareBuilder<C extends object> = {
     with<R extends object | null>(requirement: RouteRequirement<R, C>): RouteMiddlewareBuilder<C & Normalize<R>>;
-    build(handler: RouteMiddlewareHandler<C>): MiddlewareFunction<Response>;
-    build(): MiddlewareFunction<Response>;
+    build(handler: RouteMiddlewareHandler<C>): MiddlewareFunction;
+    build(): MiddlewareFunction;
 };
 
 const createRouteMiddlewareBuilder = <C extends object>(buildContext: ContextBuilder<RouteMiddlewareArgs, C>): RouteMiddlewareBuilder<C> => ({
