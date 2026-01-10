@@ -3,6 +3,7 @@
 <p align="center">A tiny, fully type-safe composer for React Router loaders, actions, and route guards.</p>
 <p align="center">
   <a href="https://github.com/pheleine/react-router-dataflow/actions/workflows/ci.yaml"><img src="https://github.com/pheleine/react-router-dataflow/actions/workflows/ci.yaml/badge.svg?branch=master"/></a>
+  <a href="https://codecov.io/gh/pheleine/react-router-dataflow"><img src="https://codecov.io/gh/pheleine/react-router-dataflow/graph/badge.svg?token=6MXCXQ7YJH"/></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-Strict-blue"/></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-brightgreen.svg"/></a>
 </p>
