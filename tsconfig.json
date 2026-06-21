@@ -10,7 +10,8 @@
         "outDir": "dist",
         "declaration": true,
         "skipLibCheck": false,
-        "strict": true
+        "strict": true,
+        "ignoreDeprecations": "6.0"
     },
     "include": [
         "src",

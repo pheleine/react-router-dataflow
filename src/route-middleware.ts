@@ -1,10 +1,7 @@
-import type { MiddlewareFunction, Params } from "react-router";
+import type { MiddlewareFunction } from "react-router";
 import { Normalize, ContextBuilder } from "./shared-types";
 
-type RouteMiddlewareArgs = {
-    request: Request;
-    params: Params;
-};
+type RouteMiddlewareArgs = Parameters<MiddlewareFunction>[0];
 
 type RouteRequirement<R extends object | null, C extends object = object> = (args: RouteMiddlewareArgs, context: C) => Promise<R>;
 type RouteMiddlewareHandler<C> = (args: RouteMiddlewareArgs, context: C) => Promise<Response | null>;

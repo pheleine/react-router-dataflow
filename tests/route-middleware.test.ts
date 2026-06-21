@@ -1,14 +1,14 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
 import { RouteMiddleware, RouteRequirement } from "../src";
 import { RouteMiddlewareArgs } from "../src/route-middleware";
+import { RouterContextProvider } from "react-router";
 
-const MOCK_ARGS = {
+const MOCK_ARGS: RouteMiddlewareArgs = {
     params: { id: "test" },
+    url: new URL("http://example.com"),
     request: new Request("http://example.com", { method: "GET" }),
-    // Any is used to mock the RouterContextProvider of React Router for testing.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    context: {} as any,
-    unstable_pattern: ""
+    context: {} as Readonly<RouterContextProvider>,
+    pattern: ""
 };
 const MOCK_NEXT = async () => new Response();
 const CUSTOM_RESPONSE = new Response(null, { statusText: "custom response" });
