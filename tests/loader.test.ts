@@ -1,12 +1,13 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
 import { Loader, LoaderMiddleware, Middleware } from "../src/index";
-import { LoaderFunctionArgs } from "react-router";
+import { LoaderFunctionArgs, RouterContextProvider } from "react-router";
 
-const MOCK_ARGS = {
+const MOCK_ARGS: LoaderFunctionArgs = {
     params: { id: "test" },
+    url: new URL("http://example.com"),
     request: new Request("http://example.com", { method: "GET" }),
-    context: {},
-    unstable_pattern: ""
+    context: {} as Readonly<RouterContextProvider>,
+    pattern: ""
 };
 
 describe("Loader builder", () => {

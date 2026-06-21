@@ -1,19 +1,21 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
 import { Action, ActionMiddleware, Middleware } from "../src/index";
-import { ActionFunctionArgs } from "react-router";
+import { ActionFunctionArgs, RouterContextProvider } from "react-router";
 
-const MOCK_ARGS_POST = {
+const MOCK_ARGS_POST: ActionFunctionArgs = {
     params: { id: "test" },
+    url: new URL("http://example.com"),
     request: new Request("http://example.com", { method: "POST" }),
-    context: {},
-    unstable_pattern: ""
+    context: {} as Readonly<RouterContextProvider>,
+    pattern: ""
 };
 
-const MOCK_ARGS_DELETE = {
+const MOCK_ARGS_DELETE: ActionFunctionArgs = {
     params: { id: "test" },
+    url: new URL("http://example.com"),
     request: new Request("http://example.com", { method: "DELETE" }),
-    context: {},
-    unstable_pattern: ""
+    context: {} as Readonly<RouterContextProvider>,
+    pattern: ""
 };
 
 describe("Action builder", () => {
